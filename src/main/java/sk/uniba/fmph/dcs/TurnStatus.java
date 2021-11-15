@@ -19,14 +19,14 @@ public class TurnStatus {
             return true;
         if (obj == null)
             return false;
-        if (getClass() != obj.getClass())
+        if (this.getClass() != obj.getClass())
             return false;
         TurnStatus other = (TurnStatus) obj;
-        if (actions != other.actions)
+        if (this.actions != other.actions)
             return false;
-        if (buys != other.buys)
+        if (this.buys != other.buys)
             return false;
-        if (coins != other.coins)
+        if (this.coins != other.coins)
             return false;
         return true;
     }

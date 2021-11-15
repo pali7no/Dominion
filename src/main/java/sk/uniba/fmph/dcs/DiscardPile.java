@@ -8,17 +8,17 @@ import java.util.Collections;
 public class DiscardPile {
     List<CardInterface> cards;
 
-    public DiscardPile(List<CardInterface> _cards) {
-        cards = _cards;
+    public DiscardPile(List<CardInterface> cards) {
+        this.cards = cards;
     }
         
     public Optional<CardInterface> getTopCard() {
     	if (cards.isEmpty()) return Optional.empty();
-        return Optional.of(cards.get(cards.size()-1));
+        return Optional.of(cards.get(cards.size() - 1));
     }
         
-    public void addCards(List<CardInterface> _cards) {
-        cards.addAll(_cards);
+    public void addCards(List<CardInterface> cards) {
+        this.cards.addAll(cards);
     }
         
     public int getSize() {
