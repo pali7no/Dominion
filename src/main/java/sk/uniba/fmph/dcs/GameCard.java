@@ -18,15 +18,15 @@ public class GameCard implements CardInterface{
     }
 
     @Override
-    public void evaluate(TurnStatus ts) {
+    public void evaluate(TurnStatus turnStatus) {
         if (gameCard.getPlusActions() > 0) {
-            ts.actions += gameCard.getPlusActions();
+            turnStatus.actions += gameCard.getPlusActions();
         }
         if (gameCard.getPlusBuys() > 0) {
-            ts.buys += gameCard.getPlusBuys();
+            turnStatus.buys += gameCard.getPlusBuys();
         }
         if (gameCard.getPlusCoins() > 0) {
-            ts.coins += gameCard.getPlusCoins();
+            turnStatus.coins += gameCard.getPlusCoins();
         }
     }
 
