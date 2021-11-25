@@ -14,9 +14,11 @@ public class Hand {
         return hand.get(idx).cardType().isAction();
     }
 
-//    public Optional<CardInterface> play(int idx) {
-//
-//    }
+    public Optional<CardInterface> play(Turn turn, int idx) {
+        CardInterface cardToPlay = hand.get(idx);
+        cardToPlay.evaluate(turn.getTurnStatus());
+        return Optional.empty();
+    }
 
     boolean isInHand(CardInterface gameCardType) {
         for (CardInterface myCard : hand) {
