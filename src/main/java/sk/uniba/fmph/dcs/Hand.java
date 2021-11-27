@@ -14,10 +14,14 @@ public class Hand {
         return hand.get(idx).cardType().isAction();
     }
 
-    public Optional<CardInterface> play(Turn turn, int idx) {
+    public Optional<CardInterface> play(Turn turn, TurnStatus turnStatus, int idx) {
         CardInterface cardToPlay = hand.get(idx);
-        cardToPlay.evaluate(turn.getTurnStatus());
-        return Optional.empty();
+        if (turnStatus.coins >= cardToPlay.cardType().getCost()) {
+            cardToPlay.evaluate(turn.getTurnStatus());
+            return Optional.of(cardToPlay);
+        } else {
+            return Optional.empty();
+        }
     }
 
     boolean isInHand(CardInterface gameCardType) {
@@ -29,5 +33,9 @@ public class Hand {
         return false;
     }
 
-
+    public List<CardInterface> throwAll() {
+        List<CardInterface> throwing = hand;
+        hand.clear();
+        return throwing;
+    }
 }

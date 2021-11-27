@@ -20,6 +20,9 @@ public class DiscardPile {
     public void addCards(List<CardInterface> cards) {
         this.cards.addAll(cards);
     }
+    public void addCard(CardInterface card) {
+        this.cards.add(card);
+    }
         
     public int getSize() {
         return cards.size();
@@ -28,8 +31,17 @@ public class DiscardPile {
     public List<CardInterface> shuffle() {
         Collections.shuffle(cards);
         List<CardInterface> cards_to_send = cards;        
-        cards = new ArrayList<CardInterface>();
+        cards.clear();
         return cards_to_send;
+    }
+
+    public void setCards(List<CardInterface> cards) {
+        this.cards = cards;
+    }
+
+    public void moveDiscardPileToPack(Pack pack) {
+        pack.getDeck().addAll(cards);
+        cards.clear();
     }
 }
         

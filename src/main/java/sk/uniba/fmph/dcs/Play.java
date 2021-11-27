@@ -14,6 +14,8 @@ public class Play {
     }
 
     public List<CardInterface> throwAll() {
-        return playArea;
+        List<CardInterface> throwing = playArea;
+        playArea.clear();
+        return throwing;
     }
 }
