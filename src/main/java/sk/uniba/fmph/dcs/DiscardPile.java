@@ -39,8 +39,8 @@ public class DiscardPile {
         this.cards = cards;
     }
 
-    public void moveDiscardPileToPack(Pack pack) {
-        pack.getDeck().addAll(cards);
+    public void moveDiscardPileToPack(Deck deck) {
+        deck.getDeck().addAll(cards);
         cards.clear();
     }
 }

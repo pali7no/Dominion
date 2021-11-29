@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public class Turn {
     private final DiscardPile discardPile;
-    private final Pack pack;
+    private final Deck deck;
     private final List<BuyDeck> buyDecks;
     private final Hand hand;
     private final Play play;
@@ -14,9 +14,9 @@ public class Turn {
     private String phase = "action";
 
 
-    public Turn(DiscardPile discardPile, Pack pack, List<BuyDeck> buyDecks, Hand hand, Play play, TurnStatus turnStatus) {
+    public Turn(DiscardPile discardPile, Deck deck, List<BuyDeck> buyDecks, Hand hand, Play play, TurnStatus turnStatus) {
         this.discardPile = discardPile;
-        this.pack = pack;
+        this.deck = deck;
         this.buyDecks = buyDecks;
         this.hand = hand;
         this.play = play;
@@ -26,7 +26,11 @@ public class Turn {
     public void playCard(int idx) throws RuntimeException {
         if (phase.equals("action")) {
             Optional<CardInterface> cardToPlay = hand.play(this, turnStatus, idx);
-            cardToPlay.ifPresent(play::putTo);
+            if (cardToPlay.isPresent()) {
+                play.putTo(cardToPlay.get());
+            } else {
+                throw new RuntimeException("Nemas action na zahratie karty.");
+            }
         } else {
             throw new RuntimeException("Nemozes hrat vo faze buy.");
         }
@@ -56,14 +60,14 @@ public class Turn {
         throwedCards.addAll(hand.throwAll());
         discardPile.addCards(throwedCards);
         discardPile.setCards(discardPile.shuffle());
-        pack.addCardsToPackIfNeeded(discardPile);
+        deck.addCardsToPackIfNeeded(discardPile);
     }
 
     public Hand getHand() {
         return hand;
     }
-    public Deck getPack() {
-        return pack;
+    public Deck getDeck() {
+        return deck;
     }
     public Play getPlay() {
         return play;

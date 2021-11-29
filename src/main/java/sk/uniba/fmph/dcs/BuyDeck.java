@@ -3,7 +3,7 @@ package sk.uniba.fmph.dcs;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BuyDeck implements Deck {
+public class BuyDeck {
     private final List<CardInterface> deck;
 
     public BuyDeck(List<CardInterface> deck, boolean isBuyDeck) {
