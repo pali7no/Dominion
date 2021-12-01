@@ -1,3 +1,16 @@
 sk/uniba/fmph/dcs/GameState.class
+sk/uniba/fmph/dcs/Play.class
+sk/uniba/fmph/dcs/SimpleDominion.class
+sk/uniba/fmph/dcs/DiscardPile.class
+sk/uniba/fmph/dcs/BuyDeck.class
+sk/uniba/fmph/dcs/Hand.class
+sk/uniba/fmph/dcs/Game.class
+sk/uniba/fmph/dcs/Deck.class
+sk/uniba/fmph/dcs/TurnStatus.class
+sk/uniba/fmph/dcs/NonShufflingDiscardPile.class
+sk/uniba/fmph/dcs/GameCard.class
+sk/uniba/fmph/dcs/Turn.class
+sk/uniba/fmph/dcs/SimpleDominionInterface.class
+sk/uniba/fmph/dcs/CardInterface.class
 sk/uniba/fmph/dcs/Card.class
 sk/uniba/fmph/dcs/GameCardType.class
