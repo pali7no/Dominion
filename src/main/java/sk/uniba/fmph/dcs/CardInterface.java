@@ -1,7 +1,7 @@
 package sk.uniba.fmph.dcs;
 
 interface CardInterface {
-    public void evaluate(TurnStatus turnStatus);
+    public void evaluate(Game game);
     public GameCardType cardType();
 }
 

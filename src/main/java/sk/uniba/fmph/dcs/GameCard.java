@@ -18,20 +18,43 @@ public class GameCard implements CardInterface{
     }
 
     @Override
-    public void evaluate(TurnStatus turnStatus) {
-        if (gameCard.getPlusActions() > 0) {
-            turnStatus.actions += gameCard.getPlusActions();
+    public void evaluate(Game game) throws RuntimeException{
+        if (gameCard.isAction()) {
+            if (game.getTurn().getTurnStatus().actions > 0) {
+                evaluateGameCard(game);
+            } else {
+                throw new RuntimeException("Nemas action na zahratie karty.");
+            }
+        } else {
+            evaluateGameCard(game);
         }
-        if (gameCard.getPlusBuys() > 0) {
-            turnStatus.buys += gameCard.getPlusBuys();
-        }
-        if (gameCard.getPlusCoins() > 0) {
-            turnStatus.coins += gameCard.getPlusCoins();
-        }
+    }
+
+    private void evaluateGameCard(Game game) {
+        game.getTurn().getTurnStatus().actions += gameCard.getPlusActions();
+        game.getTurn().getTurnStatus().buys += gameCard.getPlusBuys();
+        game.getTurn().getDiscardPile().addCard(this);
+        game.getTurn().getTurnStatus().coins += gameCard.getPlusCoins();
+        game.setPoints(game.getPoints() + gameCard.getPoints());
     }
 
     @Override
     public GameCardType cardType() {
         return gameCard;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+        result.append(this.cardType().getName()).append(": \n");
+        result.append("Plus actions: ").append(this.cardType().getPlusActions());
+        result.append("Plus buys: ").append(this.cardType().getPlusBuys());
+        result.append("Plus cards: ").append(this.cardType().getPlusCards());
+        result.append("Plus coins: ").append(this.cardType().getPlusCoins());
+        result.append("Points: ").append(this.cardType().getPoints());
+        result.append("Cost:").append(this.cardType().getCost());
+        result.append("Is action: ").append(this.cardType().isAction()).append('\n');
+        result.append("Description: ").append(this.cardType().getPlusActions());
+        return result.toString();
     }
 }

@@ -14,10 +14,10 @@ public class Hand {
         return hand.get(idx).cardType().isAction();
     }
 
-    public Optional<CardInterface> play(Turn turn, TurnStatus turnStatus, int idx) {
+    public Optional<CardInterface> play(Game game, int idx) {
         CardInterface cardToPlay = hand.get(idx);
-        if (turnStatus.coins >= cardToPlay.cardType().getCost()) {
-            cardToPlay.evaluate(turn.getTurnStatus());
+        if (game.getTurn().getTurnStatus().coins >= cardToPlay.cardType().getCost()) {
+            cardToPlay.evaluate(game);
             return Optional.of(cardToPlay);
         } else {
             return Optional.empty();

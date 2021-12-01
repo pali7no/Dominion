@@ -43,6 +43,10 @@ public class DiscardPile {
         deck.getDeck().addAll(cards);
         cards.clear();
     }
+
+    public List<CardInterface> getCards() {
+        return cards;
+    }
 }
         
         

@@ -6,7 +6,7 @@ import java.util.List;
 public class BuyDeck {
     private final List<CardInterface> deck;
 
-    public BuyDeck(List<CardInterface> deck, boolean isBuyDeck) {
+    public BuyDeck(List<CardInterface> deck) {
         this.deck = deck;
     }
 
