@@ -19,11 +19,11 @@ public class DiscardPileTest  {
     }
 
     void setUp() {
-        pile1 = new DiscardPile(new ArrayList<CardInterface>() {{
+        pile1 = new DiscardPile(new ArrayList<>() {{
             add(new GameCard(GameCardType.GAME_CARD_TYPE_ESTATE));
             add(new GameCard(GameCardType.GAME_CARD_TYPE_COPPER));
         }});
-        pile2 = new DiscardPile(new ArrayList<CardInterface>());
+        pile2 = new DiscardPile(new ArrayList<>());
     }
     
     @Test
@@ -37,12 +37,12 @@ public class DiscardPileTest  {
     public void test_add_cards_and_get_size() {
     	setUp();
         assertEquals(pile2.getCards().size(), 0);
-        pile2.addCards(new ArrayList<CardInterface>() {{
+        pile2.addCards(new ArrayList<>() {{
             add(new GameCard(GameCardType.GAME_CARD_TYPE_ESTATE));
         }});
         assertEquals(pile2.getCards().size(), 1);
         assertTopIs(pile2, "Estate");
-        pile2.addCards(new ArrayList<CardInterface>() {{
+        pile2.addCards(new ArrayList<>() {{
             add(new GameCard(GameCardType.GAME_CARD_TYPE_COPPER));
         }});
         assertEquals(pile2.getCards().size(), 2);

@@ -52,3 +52,6 @@ src/test/test.iml
 target/surefire-reports/sk.uniba.fmph.dcs.TestDiscardPile.txt
 target/surefire-reports/TEST-sk.uniba.fmph.dcs.DiscardPileTest.xml
 target/surefire-reports/TEST-sk.uniba.fmph.dcs.TestDiscardPile.xml
+target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst
+target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst
+*.lst

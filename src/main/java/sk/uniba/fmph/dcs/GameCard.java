@@ -44,6 +44,21 @@ public class GameCard implements CardInterface{
     }
 
     @Override
+    public CardInterface clone() {
+        return new GameCard(new GameCardType(
+                gameCard.getPlusActions(),
+                gameCard.getPlusBuys(),
+                gameCard.getPlusCards(),
+                gameCard.getPlusCoins(),
+                gameCard.getPoints(),
+                gameCard.getCost(),
+                gameCard.isAction(),
+                gameCard.getName(),
+                gameCard.getDescription()
+        ));
+    }
+
+    @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
         result.append(this.cardType().getName()).append(": \n");

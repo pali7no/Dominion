@@ -18,6 +18,11 @@ class FakeCard implements CardInterface {
     public GameCardType cardType() {
         return cardType;
     }
+
+    @Override
+    public CardInterface clone() {
+        return null;
+    }
 }
 
 class FakeTurnStatus {
