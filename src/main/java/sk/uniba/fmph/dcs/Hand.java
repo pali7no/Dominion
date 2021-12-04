@@ -12,9 +12,11 @@ public class Hand {
     }
 
     public Optional<CardInterface> play(Game game, int idx) {
+        TurnStatus turnStatus = game.getTurn().getTurnStatus();
         CardInterface cardToPlay = hand.get(idx);
-        if (game.getTurn().getTurnStatus().coins >= cardToPlay.cardType().getCost()) {
+        if (turnStatus.coins >= cardToPlay.cardType().getCost() && turnStatus.actions > 0) {
             cardToPlay.evaluate(game);
+            hand.remove(idx);
             return Optional.of(cardToPlay);
         } else {
             return Optional.empty();
@@ -37,6 +39,10 @@ public class Hand {
         }
         hand.clear();
         return throwing;
+    }
+
+    public void drawFiveCards(Deck deck) {
+        hand.addAll(deck.drawFromTop(5));
     }
 
     public List<CardInterface> getHand() {

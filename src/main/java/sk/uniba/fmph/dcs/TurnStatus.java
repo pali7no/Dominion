@@ -1,9 +1,15 @@
 package sk.uniba.fmph.dcs;
 
 public class TurnStatus {
-    public int actions;
-    public int buys;
-    public int coins;
+    public int actions = 0;
+    public int buys = 0;
+    public int coins = 0;
+
+    public TurnStatus(int plusActions, int plusBuys, int plusCoins) {
+        actions += plusActions + 1;
+        buys += plusBuys + 1;
+        coins += plusCoins;
+    }
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -26,8 +32,13 @@ public class TurnStatus {
             return false;
         if (this.buys != other.buys)
             return false;
-        if (this.coins != other.coins)
-            return false;
-        return true;
+        return this.coins == other.coins;
+    }
+
+    @Override
+    public String toString() {
+        return "actions: " + actions +
+                "\nbuys: " + buys +
+                "\ncoins: " + coins;
     }
 }

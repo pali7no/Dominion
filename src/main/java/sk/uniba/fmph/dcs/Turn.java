@@ -7,17 +7,15 @@ import java.util.Optional;
 public class Turn {
     private final DiscardPile discardPile;
     private final Deck deck;
-    private final List<BuyDeck> buyDecks;
     private final Hand hand;
     private final Play play;
     private final TurnStatus turnStatus;
     private String phase = "action";
 
 
-    public Turn(DiscardPile discardPile, Deck deck, List<BuyDeck> buyDecks, Hand hand, Play play, TurnStatus turnStatus) {
+    public Turn(DiscardPile discardPile, Deck deck, Hand hand, Play play, TurnStatus turnStatus) {
         this.discardPile = discardPile;
         this.deck = deck;
-        this.buyDecks = buyDecks;
         this.hand = hand;
         this.play = play;
         this.turnStatus = turnStatus;
@@ -30,7 +28,7 @@ public class Turn {
             if (cardToPlay.isPresent()) {
                 play.putTo(cardToPlay.get());
             } else {
-                throw new RuntimeException("Nemas action na zahratie karty.");
+                throw new RuntimeException("Nemas dost actionov alebo coinov na zahratie karty.");
             }
         } else {
             throw new RuntimeException("Nemozes hrat vo faze buy.");
@@ -47,11 +45,19 @@ public class Turn {
         }
     }
 
-    public void buyCard(int buyDeckIdx, int cardIdx) throws RuntimeException {
+    public void buyCard(Game game, int buyDeckIdx, int cardIdx) throws RuntimeException {
         if (phase.equals("buy")) {
-            CardInterface boughtCard = buyDecks.get(buyDeckIdx).drawByIndex(cardIdx);
-            buyDecks.get(buyDeckIdx).getDeck().remove(cardIdx);
-            discardPile.addCard(boughtCard);
+            BuyDeck buyDeck = game.getBuyDecks().get(buyDeckIdx);
+            int cardCost = buyDeck.getDeck().get(cardIdx).cardType().getCost();
+            if (turnStatus.buys > 0 && turnStatus.coins > cardCost) {
+                CardInterface boughtCard = buyDeck.drawByIndex(cardIdx);
+//                buyDeck.getDeck().remove(cardIdx);
+                discardPile.addCard(boughtCard);
+                --turnStatus.buys;
+                turnStatus.coins -= cardCost;
+            } else {
+                throw new RuntimeException("Nemas dost buyov alebo coinov na kupenie karty.");
+            }
         } else {
             throw new RuntimeException("Nemozes kupovat vo faze action.");
         }
@@ -63,7 +69,8 @@ public class Turn {
         throwedCards.addAll(hand.throwAll());
         discardPile.addCards(throwedCards);
         discardPile.setCards(discardPile.shuffle());
-        deck.addCardsToPackIfNeeded(discardPile);
+        deck.addCardsToDeckIfNeeded(discardPile);
+        hand.drawFiveCards(deck);
     }
 
     public Hand getHand() {
@@ -75,11 +82,6 @@ public class Turn {
     public Play getPlay() {
         return play;
     }
-
-    public List<BuyDeck> getBuyDecks() {
-        return buyDecks;
-    }
-
     public DiscardPile getDiscardPile() {
         return discardPile;
     }
