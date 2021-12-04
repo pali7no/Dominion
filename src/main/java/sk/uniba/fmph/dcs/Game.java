@@ -1,11 +1,15 @@
 package sk.uniba.fmph.dcs;
 
+import java.util.List;
+
 public class Game implements SimpleDominionInterface {
     private Turn turn;
+    private final List<BuyDeck> buyDecks;
     private int points = 0;
 
-    public Game(Turn turn) {
+    public Game(Turn turn, List<BuyDeck> buyDecks) {
         this.turn = turn;
+        this.buyDecks = buyDecks;
     }
 
     public void playCard(int handIdx) throws RuntimeException{
@@ -16,7 +20,7 @@ public class Game implements SimpleDominionInterface {
     }
 
     public void buyCard(int buyDeckIdx, int buyCardIdx) throws RuntimeException{
-        turn.buyCard(buyDeckIdx, buyCardIdx);
+        turn.buyCard(this, buyDeckIdx, buyCardIdx);
     }
 
     public void endTurn() throws RuntimeException{
@@ -29,6 +33,10 @@ public class Game implements SimpleDominionInterface {
 
     public void setTurn(Turn turn) {
         this.turn = turn;
+    }
+
+    public List<BuyDeck> getBuyDecks() {
+        return buyDecks;
     }
 
     public int getPoints() {

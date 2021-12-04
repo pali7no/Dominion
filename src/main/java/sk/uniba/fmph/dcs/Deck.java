@@ -19,13 +19,9 @@ public class Deck {
         return cardsToDraw;
     }
 
-    public CardInterface drawByIndex(int idx) throws RuntimeException {
-        throw new RuntimeException("Nemozes si tahat lubovolnu kartu z packu.");
-    }
-
-    public void addCardsToPackIfNeeded(DiscardPile discardPile) {
+    public void addCardsToDeckIfNeeded(DiscardPile discardPile) {
         if (deck.size() < 5) {
-            discardPile.moveDiscardPileToPack(this);
+            discardPile.moveDiscardPileToDeck(this);
         }
     }
 

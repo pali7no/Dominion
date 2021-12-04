@@ -1,6 +1,7 @@
 package sk.uniba.fmph.dcs;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -10,12 +11,12 @@ public class SimpleDominion {
     public static void main(String[] args) {
         out.println("Hello!");
         out.println("Let's begin the Dominion game!");
-        Game game = new Game(initializeTurn());
+        Game game = new Game(initializeTurn(), initializeBuyDecks());
 
         Scanner scanner = new Scanner(System.in);
         while(playTurn(game, scanner)) {
             Turn newTurn = new Turn(game.getTurn().getDiscardPile(), game.getTurn().getDeck(),
-                    game.getTurn().getBuyDecks(), game.getTurn().getHand(), game.getTurn().getPlay(),
+                    game.getTurn().getHand(), game.getTurn().getPlay(),
                     game.getTurn().getTurnStatus());
             game.setTurn(newTurn);
         }
@@ -23,18 +24,23 @@ public class SimpleDominion {
 
     public static Turn initializeTurn() {
         out.println("Initializing Turn...");
-        DiscardPile discardPile = new DiscardPile(new ArrayList<CardInterface>());
+        DiscardPile discardPile = new DiscardPile(new ArrayList<>());
         Deck deck = new Deck(initializeDeck());
-        BuyDeck buyDeck = new BuyDeck(new ArrayList<CardInterface>());
-        List<BuyDeck> buyDecks = new ArrayList<BuyDeck>();
-        buyDecks.add(buyDeck);
-        List<CardInterface> handCards = new ArrayList<CardInterface>();
-        handCards.add(new GameCard(GameCardType.GAME_CARD_TYPE_MARKET));
-        Hand hand = new Hand(handCards);
-        Play play = new Play(new ArrayList<CardInterface>());
-        TurnStatus turnStatus = new TurnStatus();
+//        List<CardInterface> handCards = new ArrayList<>();
+//        handCards.add(new GameCard(GameCardType.GAME_CARD_TYPE_MARKET));
+        //bubost:
+        Hand hand = new Hand(initializeDeck());
+        Play play = new Play(new ArrayList<>());
+        TurnStatus turnStatus = new TurnStatus(0, 0, 5);
+        out.println("Done!");
+        return new Turn(discardPile, deck, hand, play, turnStatus);
+    }
 
-        return new Turn(discardPile, deck, buyDecks, hand, play, turnStatus);
+    public static List<BuyDeck> initializeBuyDecks() {
+        BuyDeck buyDeck = new BuyDeck(initializeDeck());
+        return new ArrayList<>() {{
+            add(buyDeck);
+        }};
     }
 
     public static List<CardInterface> initializeDeck() {
@@ -46,27 +52,52 @@ public class SimpleDominion {
         initialDeck.add(new GameCard(GameCardType.GAME_CARD_TYPE_VILLAGE));
         initialDeck.add(new GameCard(GameCardType.GAME_CARD_TYPE_FESTIVAL));
         initialDeck.add(new GameCard(GameCardType.GAME_CARD_TYPE_LABORATORY));
+        Collections.shuffle(initialDeck);
         return initialDeck;
     }
 
     public static boolean playTurn(Game game, Scanner scanner) {
         while(true) {
             switch (scanner.next()) {
-                case "play":
+                case "play" -> {
                     int handIdx = scanner.nextInt();
-                    game.playCard(handIdx);
-                    break;
-                case "endPlay":
-                    game.endPlayCardPhase();
-                    break;
-                case "buy":
+                    try {
+                        game.playCard(handIdx);
+                    } catch (RuntimeException runtimeException) {
+                        runtimeException.printStackTrace();
+                    }
+                }
+                case "showHand" -> {
+                    for (CardInterface card : game.getTurn().getHand().getHand()) {
+                        out.print(card);
+                    }
+                }
+                case "endPlay" -> game.endPlayCardPhase();
+                case "buy" -> {
                     int buyDeckIdx = scanner.nextInt();
                     int buyCardIdx = scanner.nextInt();
-                    game.buyCard(buyDeckIdx, buyCardIdx);
-                    break;
-                case "endTurn":
-                    game.endTurn();
+                    try {
+                        game.buyCard(buyDeckIdx, buyCardIdx);
+                    } catch (RuntimeException runtimeException) {
+                        runtimeException.printStackTrace();
+                    }
+                }
+                case "showBuy" -> {
+                    for (BuyDeck buyDeck : game.getBuyDecks()) {
+                        for (CardInterface card : buyDeck.getDeck()) {
+                            out.print(card);
+                        }
+                    }
+                }
+                case "turnStatus" -> out.println(game.getTurn().getTurnStatus());
+                case "endTurn" -> {
+                    try {
+                        game.endTurn();
+                    } catch (RuntimeException runtimeException) {
+                        runtimeException.printStackTrace();
+                    }
                     return true;
+                }
             }
         }
     }
