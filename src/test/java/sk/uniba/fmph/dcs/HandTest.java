@@ -2,6 +2,7 @@ package sk.uniba.fmph.dcs;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
@@ -11,6 +12,7 @@ import static org.junit.Assert.assertFalse;
 public class HandTest {
     private Hand hand1;
     private Hand hand2;
+    private Game game;
 
     private void assertIsInHand(Hand hand) {
         CardInterface card1 = new GameCard(GameCardType.GAME_CARD_TYPE_FESTIVAL);
@@ -21,15 +23,22 @@ public class HandTest {
 
     private void assertThrowAll(Hand hand) {
         assertFalse(hand.getHand().isEmpty());
-//        List<CardInterface> throwed = new ArrayList<>() {{
-//           addAll(hand.throwAll());
-//        }};
         List<CardInterface> throwed = hand.throwAll();
         System.out.printf("%s", throwed);
         assertFalse(throwed.isEmpty());
     }
 
-    public void setUp() {
+    private void assertPlayCard(Game game, int idx, String cardName) {
+        game.getTurn().getTurnStatus().coins = 4;
+        Hand hand = game.getTurn().getHand();
+        assertFalse(hand.getHand().isEmpty());
+        assertEquals(hand.getHand().get(idx).cardType().getName(), cardName);
+        Optional<CardInterface> playedCard = hand.play(game, idx);
+        assertFalse(hand.getHand().isEmpty());
+        assertFalse(playedCard.isPresent());
+    }
+
+    public void setUpHand() {
         hand1 = new Hand(new ArrayList<>() {{
             add(new GameCard(GameCardType.GAME_CARD_TYPE_MARKET));
             add(new GameCard(GameCardType.GAME_CARD_TYPE_FESTIVAL));
@@ -42,14 +51,20 @@ public class HandTest {
 
     @Test
     public void testIsInHand() {
-        setUp();
+        setUpHand();
         assertIsInHand(hand1);
         assertIsInHand(hand2);
     }
 
     @Test
     public void testThrowAll() {
-        setUp();
+        setUpHand();
         assertThrowAll(hand1);
+    }
+
+    @Test
+    public void testPlay() {
+        game = new Game(SimpleDominion.initializeTurn(), SimpleDominion.initializeBuyDecks());
+        assertPlayCard(game, 0, "Market");
     }
 }
