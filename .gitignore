@@ -38,3 +38,6 @@ target/surefire-reports/sk.uniba.fmph.dcs.TestDiscardPile.txt
 target/surefire-reports/sk.uniba.fmph.dcs.DiscardPileTest.txt
 src/test/test.iml
 *.lst
+simpledominion.iws
+simpledominion.ipr
+simpledominion.iml

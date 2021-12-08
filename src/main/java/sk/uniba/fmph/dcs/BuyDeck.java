@@ -16,10 +16,6 @@ public class BuyDeck {
         return cardToDraw;
     }
 
-    public ArrayList<CardInterface> drawFromTop(int count) throws RuntimeException {
-        throw new RuntimeException("Toto je metoda Packu.");
-    }
-
     public List<CardInterface> getDeck() {
         return deck;
     }

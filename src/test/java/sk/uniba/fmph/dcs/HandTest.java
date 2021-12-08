@@ -12,7 +12,6 @@ import static org.junit.Assert.assertFalse;
 public class HandTest {
     private Hand hand1;
     private Hand hand2;
-    private Game game;
 
     private void assertIsInHand(Hand hand) {
         CardInterface card1 = new GameCard(GameCardType.GAME_CARD_TYPE_FESTIVAL);
@@ -64,7 +63,7 @@ public class HandTest {
 
     @Test
     public void testPlay() {
-        game = new Game(SimpleDominion.initializeTurn(), SimpleDominion.initializeBuyDecks());
+        Game game = new Game(SimpleDominion.initializeTurn(), SimpleDominion.initializeBuyDecks());
         assertPlayCard(game, 0, "Market");
     }
 }
