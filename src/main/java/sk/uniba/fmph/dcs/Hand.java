@@ -14,7 +14,7 @@ public class Hand {
     public Optional<CardInterface> play(Game game, int idx) {
         TurnStatus turnStatus = game.getTurn().getTurnStatus();
         CardInterface cardToPlay = handCards.get(idx);
-        if (/*turnStatus.coins >= cardToPlay.cardType().getCost() && */turnStatus.actions > 0) {
+        if (/*turnStatus.coins >= cardToPlay.cardType().getCost() &&*/ turnStatus.actions > 0) {
             cardToPlay.evaluate(game);
             handCards.remove(idx);
             return Optional.of(cardToPlay);

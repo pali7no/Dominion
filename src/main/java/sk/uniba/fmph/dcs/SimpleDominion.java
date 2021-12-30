@@ -28,16 +28,16 @@ public class SimpleDominion {
         Deck deck = new Deck(initializeDeck());
         Hand hand = new Hand(deck.drawFromTop(5));
         Play play = new Play(new ArrayList<>());
-        TurnStatus turnStatus = new TurnStatus(4, 0, 0);
+        TurnStatus turnStatus = new TurnStatus(0, 0, 0);
         out.println("Done!");
         return new Turn(discardPile, deck, hand, play, turnStatus);
     }
 
     private static List<CardInterface> initializeDeck() {
         List<CardInterface> initialDeck = new ArrayList<>();
-//        for (int i = 0; i < 3; ++i) {
-//            initialDeck.add(new GameCard(GameCardType.GAME_CARD_TYPE_ESTATE));
-//        }
+        for (int i = 0; i < 3; ++i) {
+            initialDeck.add(new GameCard(GameCardType.GAME_CARD_TYPE_ESTATE));
+        }
         for (int i = 0; i < 7; ++i) {
             initialDeck.add(new GameCard(GameCardType.GAME_CARD_TYPE_COPPER));
         }
@@ -56,7 +56,7 @@ public class SimpleDominion {
         List<CardInterface> initialDeck = new ArrayList<>();
         initialDeck.add(new GameCard(GameCardType.GAME_CARD_TYPE_MARKET));
         initialDeck.add(new GameCard(GameCardType.GAME_CARD_TYPE_ESTATE));
-//        initialDeck.add(new GameCard(GameCardType.GAME_CARD_TYPE_COPPER));
+        initialDeck.add(new GameCard(GameCardType.GAME_CARD_TYPE_COPPER));
         initialDeck.add(new GameCard(GameCardType.GAME_CARD_TYPE_SMITHY));
         initialDeck.add(new GameCard(GameCardType.GAME_CARD_TYPE_VILLAGE));
         initialDeck.add(new GameCard(GameCardType.GAME_CARD_TYPE_FESTIVAL));
@@ -100,6 +100,7 @@ public class SimpleDominion {
                     }
                 }
                 case "turnStatus" -> out.println(game.getTurn().getTurnStatus());
+                case "points" -> out.println(game.getPoints());
                 case "endTurn" -> {
                     try {
                         game.endTurn();

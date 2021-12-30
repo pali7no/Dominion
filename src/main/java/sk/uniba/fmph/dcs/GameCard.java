@@ -34,9 +34,10 @@ public class GameCard implements CardInterface{
         game.getTurn().getTurnStatus().actions += gameCard.getPlusActions() - 1;
         game.getTurn().getTurnStatus().buys += gameCard.getPlusBuys();
         game.getTurn().getDiscardPile().addCard(this);
-        game.getTurn().getTurnStatus().coins += gameCard.getPlusCoins() - gameCard.getCost();
+        game.getTurn().getTurnStatus().coins += gameCard.getPlusCoins();
         game.setPoints(game.getPoints() + gameCard.getPoints());
-
+        game.getTurn().getHand().getHandCards().addAll(
+                game.getTurn().getDeck().drawFromTop(gameCard.getPlusCards()));
     }
 
     @Override
