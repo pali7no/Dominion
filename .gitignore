@@ -52,3 +52,5 @@ src/test/test.iml
 target/surefire-reports/sk.uniba.fmph.dcs.TestDiscardPile.txt
 target/surefire-reports/TEST-sk.uniba.fmph.dcs.DiscardPileTest.xml
 target/surefire-reports/TEST-sk.uniba.fmph.dcs.TestDiscardPile.xml
+simpledominion.ipr
+simpledominion.iws
