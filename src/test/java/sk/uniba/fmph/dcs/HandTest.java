@@ -21,7 +21,7 @@ public class HandTest {
     }
 
     private void assertThrowAll(Hand hand) {
-        assertFalse(hand.getHand().isEmpty());
+        assertFalse(hand.getHandCards().isEmpty());
         List<CardInterface> throwed = hand.throwAll();
         System.out.printf("%s", throwed);
         assertFalse(throwed.isEmpty());
@@ -30,10 +30,10 @@ public class HandTest {
     private void assertPlayCard(Game game, int idx, String cardName) {
         game.getTurn().getTurnStatus().coins = 4;
         Hand hand = game.getTurn().getHand();
-        assertFalse(hand.getHand().isEmpty());
-        assertEquals(hand.getHand().get(idx).cardType().getName(), cardName);
+        assertFalse(hand.getHandCards().isEmpty());
+        assertEquals(hand.getHandCards().get(idx).cardType().getName(), cardName);
         Optional<CardInterface> playedCard = hand.play(game, idx);
-        assertFalse(hand.getHand().isEmpty());
+        assertFalse(hand.getHandCards().isEmpty());
         assertFalse(playedCard.isPresent());
     }
 

@@ -42,7 +42,7 @@ public class DiscardPile {
     }
 
     public void moveDiscardPileToDeck(Deck deck) {
-        deck.getDeck().addAll(cards);
+        deck.getDeckCards().addAll(cards);
         cards.clear();
     }
 

@@ -43,7 +43,7 @@ public class SimpleDominion {
         }};
     }
 
-    public static List<CardInterface> initializeDeck() {
+    public static List<CardInterface> initializeBuyDeck() {
         List<CardInterface> initialDeck = new ArrayList<>();
         initialDeck.add(new GameCard(GameCardType.GAME_CARD_TYPE_MARKET));
         initialDeck.add(new GameCard(GameCardType.GAME_CARD_TYPE_ESTATE));
@@ -55,6 +55,7 @@ public class SimpleDominion {
         Collections.shuffle(initialDeck);
         return initialDeck;
     }
+
 
     public static boolean playTurn(Game game, Scanner scanner) {
         while(true) {
@@ -68,7 +69,7 @@ public class SimpleDominion {
                     }
                 }
                 case "showHand" -> {
-                    for (CardInterface card : game.getTurn().getHand().getHand()) {
+                    for (CardInterface card : game.getTurn().getHand().getHandCards()) {
                         out.print(card);
                     }
                 }

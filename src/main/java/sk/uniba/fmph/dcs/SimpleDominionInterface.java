@@ -1,7 +1,5 @@
 package sk.uniba.fmph.dcs;
 
-import java.util.Optional; 
- 
 interface SimpleDominionInterface {
     public void playCard(int handIdx) throws RuntimeException;
     public void endPlayCardPhase() throws RuntimeException;

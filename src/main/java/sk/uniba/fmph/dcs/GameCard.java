@@ -67,7 +67,7 @@ public class GameCard implements CardInterface{
 //        result.append("Plus cards: ").append(this.cardType().getPlusCards());
 //        result.append("Plus coins: ").append(this.cardType().getPlusCoins());
 //        result.append("Points: ").append(this.cardType().getPoints());
-        "Cost: " + this.cardType().getCost() + '\n' +
+        "\tCost: " + this.cardType().getCost() + "\n\t" +
 //        result.append("Is action: ").append(this.cardType().isAction()).append('\n');
                 this.cardType().getDescription() + '\n';
     }
