@@ -49,7 +49,7 @@ public class Turn {
         if (phase.equals("buy")) {
             BuyDeck buyDeck = game.getBuyDecks().get(buyDeckIdx);
             int cardCost = buyDeck.getDeck().get(cardIdx).cardType().getCost();
-            if (turnStatus.buys > 0 && turnStatus.coins > cardCost) {
+            if (turnStatus.buys > 0 && turnStatus.coins >= cardCost) {
                 CardInterface boughtCard = buyDeck.drawByIndex(cardIdx);
 //                buyDeck.getDeck().remove(cardIdx);
                 discardPile.addCard(boughtCard);
@@ -71,6 +71,8 @@ public class Turn {
         discardPile.setCards(discardPile.shuffle());
         deck.addCardsToDeckIfNeeded(discardPile);
         hand.drawFiveCards(deck);
+        ++turnStatus.actions;
+        ++turnStatus.buys;
     }
 
     public Hand getHand() {

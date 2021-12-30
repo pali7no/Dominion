@@ -26,18 +26,27 @@ public class SimpleDominion {
         out.println("Initializing Turn...");
         DiscardPile discardPile = new DiscardPile(new ArrayList<>());
         Deck deck = new Deck(initializeDeck());
-//        List<CardInterface> handCards = new ArrayList<>();
-//        handCards.add(new GameCard(GameCardType.GAME_CARD_TYPE_MARKET));
-        //bubost:
-        Hand hand = new Hand(initializeDeck());
+        Hand hand = new Hand(deck.drawFromTop(5));
         Play play = new Play(new ArrayList<>());
-        TurnStatus turnStatus = new TurnStatus(0, 0, 5);
+        TurnStatus turnStatus = new TurnStatus(4, 0, 0);
         out.println("Done!");
         return new Turn(discardPile, deck, hand, play, turnStatus);
     }
 
+    private static List<CardInterface> initializeDeck() {
+        List<CardInterface> initialDeck = new ArrayList<>();
+//        for (int i = 0; i < 3; ++i) {
+//            initialDeck.add(new GameCard(GameCardType.GAME_CARD_TYPE_ESTATE));
+//        }
+        for (int i = 0; i < 7; ++i) {
+            initialDeck.add(new GameCard(GameCardType.GAME_CARD_TYPE_COPPER));
+        }
+        Collections.shuffle(initialDeck);
+        return initialDeck;
+    }
+
     public static List<BuyDeck> initializeBuyDecks() {
-        BuyDeck buyDeck = new BuyDeck(initializeDeck());
+        BuyDeck buyDeck = new BuyDeck(initializeBuyDeck());
         return new ArrayList<>() {{
             add(buyDeck);
         }};
@@ -47,7 +56,7 @@ public class SimpleDominion {
         List<CardInterface> initialDeck = new ArrayList<>();
         initialDeck.add(new GameCard(GameCardType.GAME_CARD_TYPE_MARKET));
         initialDeck.add(new GameCard(GameCardType.GAME_CARD_TYPE_ESTATE));
-        initialDeck.add(new GameCard(GameCardType.GAME_CARD_TYPE_COPPER));
+//        initialDeck.add(new GameCard(GameCardType.GAME_CARD_TYPE_COPPER));
         initialDeck.add(new GameCard(GameCardType.GAME_CARD_TYPE_SMITHY));
         initialDeck.add(new GameCard(GameCardType.GAME_CARD_TYPE_VILLAGE));
         initialDeck.add(new GameCard(GameCardType.GAME_CARD_TYPE_FESTIVAL));
