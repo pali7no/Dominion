@@ -18,4 +18,8 @@ public class Play {
         playArea.clear();
         return throwing;
     }
+
+    public List<CardInterface> getPlayArea() {
+        return playArea;
+    }
 }

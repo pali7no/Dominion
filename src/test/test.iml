@@ -9,5 +9,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.11" level="project" />
     <orderEntry type="module" module-name="main" scope="TEST" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.mockito:mockito-all:2.0.2-beta" level="project" />
   </component>
 </module>

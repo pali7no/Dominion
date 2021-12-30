@@ -31,11 +31,12 @@ public class GameCard implements CardInterface{
     }
 
     private void evaluateGameCard(Game game) {
-        game.getTurn().getTurnStatus().actions += gameCard.getPlusActions();
+        game.getTurn().getTurnStatus().actions += gameCard.getPlusActions() - 1;
         game.getTurn().getTurnStatus().buys += gameCard.getPlusBuys();
         game.getTurn().getDiscardPile().addCard(this);
-        game.getTurn().getTurnStatus().coins += gameCard.getPlusCoins();
+        game.getTurn().getTurnStatus().coins += gameCard.getPlusCoins() - gameCard.getCost();
         game.setPoints(game.getPoints() + gameCard.getPoints());
+
     }
 
     @Override
@@ -44,17 +45,30 @@ public class GameCard implements CardInterface{
     }
 
     @Override
+    public CardInterface clone() {
+        return new GameCard(new GameCardType(
+                gameCard.getPlusActions(),
+                gameCard.getPlusBuys(),
+                gameCard.getPlusCards(),
+                gameCard.getPlusCoins(),
+                gameCard.getPoints(),
+                gameCard.getCost(),
+                gameCard.isAction(),
+                gameCard.getName(),
+                gameCard.getDescription()
+        ));
+    }
+
+    @Override
     public String toString() {
-        StringBuilder result = new StringBuilder();
-        result.append(this.cardType().getName()).append(": \n");
-        result.append("Plus actions: ").append(this.cardType().getPlusActions());
-        result.append("Plus buys: ").append(this.cardType().getPlusBuys());
-        result.append("Plus cards: ").append(this.cardType().getPlusCards());
-        result.append("Plus coins: ").append(this.cardType().getPlusCoins());
-        result.append("Points: ").append(this.cardType().getPoints());
-        result.append("Cost:").append(this.cardType().getCost());
-        result.append("Is action: ").append(this.cardType().isAction()).append('\n');
-        result.append("Description: ").append(this.cardType().getPlusActions());
-        return result.toString();
+        return this.cardType().getName() + ": \n" +
+//        result.append("Plus actions: ").append(this.cardType().getPlusActions());
+//        result.append("Plus buys: ").append(this.cardType().getPlusBuys());
+//        result.append("Plus cards: ").append(this.cardType().getPlusCards());
+//        result.append("Plus coins: ").append(this.cardType().getPlusCoins());
+//        result.append("Points: ").append(this.cardType().getPoints());
+        "\tCost: " + this.cardType().getCost() + "\n\t" +
+//        result.append("Is action: ").append(this.cardType().isAction()).append('\n');
+                this.cardType().getDescription() + '\n';
     }
 }

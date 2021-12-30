@@ -30,7 +30,9 @@ public class DiscardPile {
         
     public List<CardInterface> shuffle() {
         Collections.shuffle(cards);
-        List<CardInterface> cards_to_send = cards;        
+        List<CardInterface> cards_to_send = new ArrayList<>() {{
+            addAll(cards);
+        }};
         cards.clear();
         return cards_to_send;
     }
@@ -39,8 +41,8 @@ public class DiscardPile {
         this.cards = cards;
     }
 
-    public void moveDiscardPileToPack(Deck deck) {
-        deck.getDeck().addAll(cards);
+    public void moveDiscardPileToDeck(Deck deck) {
+        deck.getDeckCards().addAll(cards);
         cards.clear();
     }
 

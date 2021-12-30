@@ -1,8 +1,9 @@
 package sk.uniba.fmph.dcs;
 
 interface CardInterface {
-    public void evaluate(Game game);
-    public GameCardType cardType();
+    void evaluate(Game game);
+    GameCardType cardType();
+    CardInterface clone();
 }
 
 
